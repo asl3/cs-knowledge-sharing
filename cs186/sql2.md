@@ -1,4 +1,4 @@
-# SQL II [WIP]
+# SQL II
 
 [Link to SQL 2 playlist](https://www.youtube.com/watch?v=PD8dIic-5IE&list=PLzzVuDSjP25QapEtTMxw56ZtKRf62lkL_)
 
