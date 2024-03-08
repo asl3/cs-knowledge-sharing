@@ -1,4 +1,4 @@
-# Databases Learning
+# Databases Learning Knowledge Sharing
 
 My name is Amanda and I love to learn new things. Join me as I learn about databases!
 
