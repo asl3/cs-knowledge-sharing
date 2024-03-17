@@ -28,3 +28,9 @@
 - DBMS: 2 cross-cutting issues related to storage and memory management
   - Concurrency control
   - Recovery
+
+## Disks
+
+- Most database systems originally designed for magnetic disks -> implications for solid state disks too!
+  - No pointer derefs. Instead API for READ and WRITE. Both are very slow.
+    - Explicit API can help minimize pointer errors
