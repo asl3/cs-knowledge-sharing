@@ -33,4 +33,30 @@
 
 - Most database systems originally designed for magnetic disks -> implications for solid state disks too!
   - No pointer derefs. Instead API for READ and WRITE. Both are very slow.
+    - Transfering data from disk to RAM (and vice versa)
     - Explicit API can help minimize pointer errors
+
+## Storage Hierarchy
+
+in order of big, slow to small, fast:
+
+- Disk -> SSD -> RAM -> L2 Cache -> L1 Cache -> Registers
+
+## Components of a Disk
+
+- Platters spin ~15000 RPM
+- Arm assembly moves to position head on desired track
+- **only 1 head reads or writes at a time**
+- time to access (read/write) a disk block:
+  - seek time: moving arms to position disk head on track
+  - rotational delay: waiting for block to rotate under head
+  - transfer time: moving data to/from disk service
+- to lower I/O cost: minimize seek and rotational delays
+
+## Flash (SSD)
+
+- **Reading** fast + predictable, unlike writing
+  - Fine-grain reads (4-8K reads), coarse-grain writes (1-2 MB writes)
+- Only 2k-3k erasures before failure
+- Write amplification: big units, reorg for wear + garbage collection
+- Flash reads much faster than Disk, can be 10-100x bandwidth compared to HHD
