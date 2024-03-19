@@ -60,3 +60,64 @@ in order of big, slow to small, fast:
 - Only 2k-3k erasures before failure
 - Write amplification: big units, reorg for wear + garbage collection
 - Flash reads much faster than Disk, can be 10-100x bandwidth compared to HHD
+
+## Storage Pragmatics
+
+- Many significant databases are not large
+  - BUT, data sizes grow faster than Moore's Law
+
+## Hardware Bottom Line
+
+- Very large DBs: disk is best cost/MB, SSDs improve performance and performance variance
+- Smaller DBs: hardware changing quickly, flash wins at low end
+
+## Block Level Storage
+
+- Read and write large chunks of sequential bytes
+- Amortize seek delays (HDDs) and writes (SSDs)
+- Predict future behavior
+  - Cache popular blocks
+  - Pre-fetch blocks likely to be accessed
+  - Buffer writes to sequential blocks
+
+## Terminology Notes
+
+- Block = unit of transfer for disk read/write
+- Page = common synonym for block
+- 'Next' block concept
+  - sequential blocks on same track
+    - followed by blocks on same cylinder
+    - followed by blocks on adjacent cylinder
+- Sequential scan: pre-fetch several blocks at any time!
+- Read large consecutive blocks
+
+## Disk Space Management
+
+- Lowest layer of DBMS, manages space on disk
+- Purpose:
+
+  - Map pages to locations on disk
+  - Load pages from disk to memory
+  - Save pages back to disk, ensure writes
+
+- Requesting pages
+  - request for sequence of pages best satisfied by pages stored sequentially on disk
+  - physical details hidden from higher levels of system
+  - higher levels may safely assume next page is fast
+
+## Disk Space Management: Implementation
+
+- Proposal 1: talk to storage device directly
+
+  - fast, but what happens when devices change?
+
+- Proposal 2: Run over filesystem (FS)
+
+  - allocate single large contiguous file on empty disk, assume sequential/nearby byte access are fast
+  - most FS optimize disk layout for sequential access
+  - DBMS file can span multiple FS files on multiple disks/machines!!
+
+- Summary: Disk Space Management
+  - Provide API to read + write pages to device
+  - Pages: block level organization of bytes on disk
+  - Provides "next" locality and abstracts FS/device details
