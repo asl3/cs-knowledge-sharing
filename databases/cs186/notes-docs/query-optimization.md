@@ -1,5 +1,7 @@
 # Query Optimization
 
+<https://cs186berkeley.net/notes/note10/>
+
 ## Introduction
 
 - Databases change order of executing operations to get the best performance
